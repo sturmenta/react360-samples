@@ -4,6 +4,16 @@
 import {ReactInstance} from 'react-360-web';
 
 function init(bundle, parent, options = {}) {
+
+  // initialise instant game
+  if (FBInstant) {
+    FBInstant.initializeAsync()
+    .then(function() {
+      FBInstant.setLoadingProgress(100);
+      FBInstant.startGameAsync();
+    });
+  }
+
   const r360 = new ReactInstance(bundle, parent, {
     // Add custom options here
     fullScreen: true,
@@ -12,7 +22,7 @@ function init(bundle, parent, options = {}) {
 
   // Render your app content to the default cylinder surface
   r360.renderToSurface(
-    r360.createRoot('react360_samples', { /* initial props */ }),
+    r360.createRoot('BasicAppTemplate', { /* initial props */ }),
     r360.getDefaultSurface()
   );
 
